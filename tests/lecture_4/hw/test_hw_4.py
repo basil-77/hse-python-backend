@@ -74,12 +74,6 @@ def regular_user_data():
         "role": UserRole.USER,
     }
 
-def auth(username: str, password: str) -> dict:
-    creds = f'{username}:{password}'.encode('utf-8')
-    header = base64.b64encode(creds).decode('utf-8')
-    return {'Authorization': f'Basic {header}'}
-
-
 # test users.py
 async def test_register_user2(client, valid_user_data):
     response = client.post("/user-register", json=valid_user_data)
