@@ -28,10 +28,10 @@ class CartResponse(BaseModel):
 
 
 class ItemRequest(BaseModel):
-    id: int
+    id: int = 0
     name: str
     price: float
-    deleted: bool
+    deleted: bool = False
 
     def as_item_info(self) -> ItemInfo:
         return ItemInfo(id=self.id, name=self.name, price=self.price, deleted=self.deleted)

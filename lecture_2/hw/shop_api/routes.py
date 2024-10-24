@@ -31,7 +31,9 @@ async def get_item(id: int) -> ItemResponse:
             HTTPStatus.NOT_FOUND,
             'Requested resource item/{id} not found'
         )
-    return ItemResponse.get_item(item)
+    #return ItemResponse.get_item(item)
+    item = ItemResponse.get_item(item)
+    return({'id': item.id, 'name': item.name, 'price': item.price, 'deleted': item.deleted})
 
 @router_item.get('/')
 async def get_items_by_query(
@@ -53,7 +55,9 @@ async def post_item(info: ItemRequest, response: Response) -> ItemResponse:
     new_item = data.new_item(item.name, item.price)
     id = new_item['id']
     response.headers['location'] = f'/item/{id}'
-    return ItemResponse.get_item(new_item)
+    #return ItemResponse.get_item(new_item)
+    item = ItemResponse.get_item(new_item)
+    return({'id': item.id, 'name': item.name, 'price': item.price, 'deleted': item.deleted})
 
 
 @router_item.put('/{id}',
@@ -118,7 +122,6 @@ async def post_cart(response: Response) -> Response:
 )
 async def get_cart(id: int) -> CartResponse:
     cart = data.get_cart(id)
-    print ('----', cart)
     if not cart:
         raise HTTPException(
             HTTPStatus.NOT_FOUND,

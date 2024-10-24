@@ -101,7 +101,7 @@ SQL_GET_CART = """
 
 class StoreDB:
     def __init__(self, db_file_name) -> None:
-        self.con = sq.connect(db_file_name)
+        self.con = sq.connect(db_file_name, check_same_thread=False)
         self.con.row_factory = sq.Row
         self.con.execute(SQL_CREATE_CART)
         self.con.execute(SQL_CREATE_ITEM)
